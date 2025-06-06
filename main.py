@@ -7,10 +7,8 @@ from PIL import Image
 from diffusers import StableDiffusionXLPipeline
 from tqdm import tqdm
 
-# Import our custom modules
-#from carbon_tracking import CarbonTracker
-from simple_carbon_tracking import SimpleCarbonTracker as CarbonTracker
-
+# Import our enhanced carbon tracking
+from carbon_tracking import EnhancedCarbonTracker
 
 # Import lightweight SDXL UNet (assuming you've placed it in your project directory)
 import sys
@@ -24,8 +22,10 @@ except ImportError:
     LIGHTWEIGHT_UNET_AVAILABLE = False
     print("⚠️ Lightweight SDXL UNet implementation not found. Using standard diffusers UNet.")
 
-# Import our parallel sampling implementation
-from parallel_sampling_sdxl import ParallelSDXLPipeline
+# Import our parallel sampling implementation (use the fixed version)
+#from parallel_sampling_sdxl import ParallelSDXLPipeline
+from savvy_sampling import ParallelSDXLPipeline
+
 
 
 def load_model(model_id, use_lightweight=True, torch_dtype=torch.float16):
@@ -68,8 +68,8 @@ def run_benchmarks(args):
     Args:
         args: Command-line arguments
     """
-    # Initialize carbon tracker
-    tracker = CarbonTracker(
+    # Initialize enhanced carbon tracker
+    tracker = EnhancedCarbonTracker(
         project_name=args.project_name,
         output_dir=args.output_dir
     )
@@ -112,17 +112,29 @@ def run_benchmarks(args):
         picard_iterations=args.picard_iterations
     )
     
-    # Define test prompts
+    # Define test prompts - curated for good visual comparison
     if args.prompts:
         test_prompts = args.prompts
     else:
         test_prompts = [
-            "A serene landscape with mountains and a lake at sunset",
-            "A futuristic city with flying cars and tall skyscrapers",
-            "A portrait of a woman with long hair in renaissance style",
-            "An astronaut riding a horse on Mars, highly detailed",
-            "A macro photograph of a snowflake on a dark background"
+            "A majestic mountain landscape at golden hour with crystal clear lake reflections",
+            "Portrait of a cyberpunk character with neon lights and detailed facial features",
+            "A fantastical dragon soaring above medieval castle towers, highly detailed",
+            "Macro photography of a dewdrop on a flower petal, bokeh background",
+            "An astronaut floating in space with Earth visible in the background, photorealistic"
         ]
+    
+    # Limit to requested number of test images
+    if args.max_images:
+        test_prompts = test_prompts[:args.max_images]
+    
+    print(f"\n🚀 Starting benchmark with {len(test_prompts)} test prompts")
+    print(f"📋 Configuration:")
+    print(f"   • Steps: {args.num_steps}")
+    print(f"   • Blocks: {args.num_blocks}")
+    print(f"   • Picard iterations: {args.picard_iterations}")
+    print(f"   • Guidance scale: {args.guidance_scale}")
+    print(f"   • Resolution: {args.width}x{args.height}")
     
     # Run standard inference
     @tracker.track_inference("standard")
@@ -144,36 +156,88 @@ def run_benchmarks(args):
             height=args.height,
             width=args.width,
             guidance_scale=args.guidance_scale
-        ).images[0]
+        )
     
     # Create output directory for images
     images_dir = os.path.join(args.output_dir, "images")
     os.makedirs(images_dir, exist_ok=True)
     
     # Run benchmarks
+    print(f"\n📸 Generating images...")
     for i, prompt in enumerate(test_prompts):
-        print(f"\nPrompt {i+1}/{len(test_prompts)}: {prompt}")
+        print(f"\n{'='*60}")
+        print(f"🎨 Prompt {i+1}/{len(test_prompts)}")
+        print(f"💬 {prompt}")
+        print(f"{'='*60}")
         
         # Run standard inference
-        print("\nRunning standard inference...")
-        standard_image = run_standard_inference(prompt)
-        standard_image.save(os.path.join(images_dir, f"standard_{i}.png"))
+        print("\n🔄 Running standard inference...")
+        try:
+            standard_image = run_standard_inference(prompt)
+            standard_image.save(os.path.join(images_dir, f"standard_{i}.png"))
+            print("✅ Standard generation complete")
+        except Exception as e:
+            print(f"❌ Standard generation failed: {e}")
+            continue
+        
+        # Small delay to separate the inference runs
+        time.sleep(1)
         
         # Run parallel inference
-        print("\nRunning parallel inference...")
-        parallel_image = run_parallel_inference(prompt)
-        parallel_image.save(os.path.join(images_dir, f"parallel_{i}.png"))
-        
-        # Create comparison image
-        comparison = Image.new('RGB', (standard_image.width * 2, standard_image.height))
-        comparison.paste(standard_image, (0, 0))
-        comparison.paste(parallel_image, (standard_image.width, 0))
-        comparison.save(os.path.join(images_dir, f"comparison_{i}.png"))
+        print("\n⚡ Running parallel inference...")
+        try:
+            parallel_image = run_parallel_inference(prompt)
+            parallel_image.save(os.path.join(images_dir, f"parallel_{i}.png"))
+            print("✅ Parallel generation complete")
+        except Exception as e:
+            print(f"❌ Parallel generation failed: {e}")
+            continue
     
-    # Generate report and plots
-    tracker.save_results()
-    tracker.generate_report()
-    tracker.plot_comparison()
+    print(f"\n{'='*60}")
+    print("📊 Generating analysis and comparisons...")
+    print(f"{'='*60}")
+    
+    # Generate all visual comparisons and analysis
+    try:
+        # Save raw results
+        tracker.save_results()
+        
+        # Generate comprehensive report
+        tracker.generate_report()
+        
+        # Create all visual comparisons
+        comparison_results = tracker.generate_all_comparisons()
+        
+        print(f"\n🎉 Analysis complete!")
+        print(f"📁 Results saved to: {args.output_dir}")
+        print(f"\n📋 Generated files:")
+        print(f"   • Individual images: {images_dir}/")
+        if comparison_results.get("individual_comparisons"):
+            print(f"   • Side-by-side comparisons: {len(comparison_results['individual_comparisons'])} files")
+        if comparison_results.get("dashboard"):
+            print(f"   • Performance dashboard: {comparison_results['dashboard']}")
+        if comparison_results.get("grid"):
+            print(f"   • Comparison grid: {comparison_results['grid']}")
+        
+        # Print summary for presentation
+        print(f"\n🎯 QUICK PRESENTATION SUMMARY:")
+        if tracker.results["standard"] and tracker.results["parallel"]:
+            std_avg_time = sum(r["execution_time"] for r in tracker.results["standard"]) / len(tracker.results["standard"])
+            par_avg_time = sum(r["execution_time"] for r in tracker.results["parallel"]) / len(tracker.results["parallel"])
+            time_improvement = (std_avg_time - par_avg_time) / std_avg_time * 100
+            
+            std_avg_co2 = sum(r["emissions"] for r in tracker.results["standard"]) / len(tracker.results["standard"])
+            par_avg_co2 = sum(r["emissions"] for r in tracker.results["parallel"]) / len(tracker.results["parallel"])
+            co2_improvement = (std_avg_co2 - par_avg_co2) / std_avg_co2 * 100
+            
+            print(f"   • Average speedup: {time_improvement:+.1f}%")
+            print(f"   • Carbon reduction: {co2_improvement:+.1f}%")
+            print(f"   • Images generated: {len(tracker.results['standard'])} pairs")
+            
+    except Exception as e:
+        print(f"❌ Analysis generation failed: {e}")
+        import traceback
+        traceback.print_exc()
 
 
 def parse_args():
@@ -201,6 +265,8 @@ def parse_args():
                         help="Image height")
     parser.add_argument("--width", type=int, default=1024,
                         help="Image width")
+    parser.add_argument("--max_images", type=int, default=None,
+                        help="Maximum number of test images to generate")
     
     # Optimization configuration
     parser.add_argument("--use_fp16", action="store_true",
@@ -227,9 +293,21 @@ def parse_args():
 
 if __name__ == "__main__":
     args = parse_args()
-    run_benchmarks(args)
-
-    print("\n== 🎉 Benchmarks Complete! ==")
-    print(f"Results saved to {args.output_dir}")
-    print(f"Check {args.output_dir}/images for generated images")
-    print(f"Check {args.output_dir}/{args.project_name}_report.md for performance report")
+    
+    print("🚀 SDXL Parallel Sampling Benchmark")
+    print("=" * 50)
+    
+    try:
+        run_benchmarks(args)
+        print(f"\n🎉 Benchmark Complete!")
+        print(f"📁 Check {args.output_dir} for all results")
+        print(f"📊 Dashboard: {args.output_dir}/{args.project_name}_dashboard.png")
+        print(f"📝 Report: {args.output_dir}/{args.project_name}_report.md")
+        print(f"🖼️  Comparisons: {args.output_dir}/comparisons/")
+        
+    except KeyboardInterrupt:
+        print("\n⚠️ Benchmark interrupted by user")
+    except Exception as e:
+        print(f"\n❌ Benchmark failed: {e}")
+        import traceback
+        traceback.print_exc()

@@ -1,0 +1,77 @@
+[
+  {
+    "method": "baseline",
+    "prompt": "A futuristic city with flying cars at sunset",
+    "execution_time": 5.567514419555664,
+    "gpu_memory_mb": 15850.0,
+    "estimated_carbon_kg": 0.0001855838139851888,
+    "timestamp": 1749162752.81138
+  },
+  {
+    "method": "optimized",
+    "prompt": "A futuristic city with flying cars at sunset",
+    "execution_time": 5.028588056564331,
+    "gpu_memory_mb": 24734.0,
+    "estimated_carbon_kg": 0.00016761960188547772,
+    "timestamp": 1749162758.2450855
+  },
+  {
+    "method": "baseline",
+    "prompt": "A magical forest with glowing mushrooms",
+    "execution_time": 4.763754606246948,
+    "gpu_memory_mb": 24734.0,
+    "estimated_carbon_kg": 0.00015879182020823163,
+    "timestamp": 1749162764.1478312
+  },
+  {
+    "method": "optimized",
+    "prompt": "A magical forest with glowing mushrooms",
+    "execution_time": 5.020051002502441,
+    "gpu_memory_mb": 24736.0,
+    "estimated_carbon_kg": 0.00016733503341674806,
+    "timestamp": 1749162769.595197
+  },
+  {
+    "method": "baseline",
+    "prompt": "An astronaut riding a horse on Mars",
+    "execution_time": 4.752840757369995,
+    "gpu_memory_mb": 24736.0,
+    "estimated_carbon_kg": 0.00015842802524566651,
+    "timestamp": 1749162775.5254872
+  },
+  {
+    "method": "optimized",
+    "prompt": "An astronaut riding a horse on Mars",
+    "execution_time": 5.00584864616394,
+    "gpu_memory_mb": 24736.0,
+    "estimated_carbon_kg": 0.00016686162153879802,
+    "timestamp": 1749162780.954916
+  },
+  {
+    "method": "parallel_sampling",
+    "prompt": "A futuristic city with flying cars at sunset",
+    "execution_time": 2.4206584432850717,
+    "gpu_memory_mb": 4800,
+    "estimated_carbon_kg": 0.0001168031350771586,
+    "timestamp": 1749162781.9661756,
+    "note": "Simulated results for demo"
+  },
+  {
+    "method": "parallel_sampling",
+    "prompt": "A magical forest with glowing mushrooms",
+    "execution_time": 2.0711976548899775,
+    "gpu_memory_mb": 4800,
+    "estimated_carbon_kg": 8.176219455401102e-05,
+    "timestamp": 1749162781.9661918,
+    "note": "Simulated results for demo"
+  },
+  {
+    "method": "parallel_sampling",
+    "prompt": "An astronaut riding a horse on Mars",
+    "execution_time": 2.0664525032043457,
+    "gpu_memory_mb": 4800,
+    "estimated_carbon_kg": 5.7233536187807715e-05,
+    "timestamp": 1749162781.9661982,
+    "note": "Simulated results for demo"
+  }
+]

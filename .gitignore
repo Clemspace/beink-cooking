@@ -1,1 +1,331 @@
-.qodo
+# BEINK Diffusion Optimizer .gitignore
+# =====================================
+
+# Python
+# ------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Virtual Environments
+# -------------------
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+conda-meta/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Machine Learning & AI
+# ---------------------
+# Model files (too large for git)
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.bin
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# HuggingFace cache
+.cache/
+huggingface/
+transformers_cache/
+diffusers_cache/
+
+# Weights & Biases
+wandb/
+
+# MLflow
+mlruns/
+
+# TensorBoard logs
+runs/
+logs/
+tensorboard_logs/
+
+# Generated Images & Videos
+# -------------------------
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.mp4
+*.avi
+*.mov
+*.webm
+
+# But keep specific important images
+!docs/assets/*.png
+!docs/assets/*.jpg
+!assets/*.png
+!assets/*.jpg
+!README_images/*.png
+!README_images/*.jpg
+
+# Results & Outputs
+# -----------------
+results/
+outputs/
+generated/
+experiments/
+benchmarks/
+comparisons/
+metrics/
+carbon_tracking/
+performance_logs/
+
+# But keep result summaries and analysis
+!results/README.md
+!results/summary/
+!outputs/analysis/
+
+# Demo & Presentation Files
+# -------------------------
+presentation_demo/
+hackathon_results/
+demo_results/
+*.pptx
+*.ppt
+
+# But keep the presentation HTML
+!*.html
+
+# Dataset & Training Data
+# -----------------------
+data/
+datasets/
+training_data/
+validation_data/
+test_data/
+*.tar
+*.zip
+*.7z
+*.rar
+
+# CUDA & GPU
+# ----------
+*.cu.o
+*.cubin
+*.fatbin
+*.ptx
+
+# System Files
+# ------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Temporary Files
+# ---------------
+*.tmp
+*.temp
+*.log
+*.out
+*.err
+.*.swp
+.*.swo
+.lock
+*.lock
+
+# Configuration Files with Secrets
+# --------------------------------
+.env.local
+.env.production
+.env.development
+config.json
+secrets.json
+api_keys.txt
+*.key
+*.pem
+*.crt
+
+# Carbon Tracking Data
+# --------------------
+emissions.csv
+codecarbon.log
+carbon_tracker/
+sustainability_reports/
+
+# Profiling & Debugging
+# ---------------------
+.prof
+*.prof
+profile_results/
+debug_logs/
+memory_profiles/
+
+# Large Files (use Git LFS instead)
+# ---------------------------------
+*.zip
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+
+# IDE and Development Tools
+# -------------------------
+.spyderproject
+.spyproject
+.ropeproject
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+cython_debug/
+
+# OS generated files
+# ------------------
+*.pid
+*.seed
+*.pid.lock
+.grunt
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Backup files
+# ------------
+*.bak
+*.backup
+*.orig
+*~
+
+# SSH keys
+# --------
+id_rsa
+id_rsa.pub
+known_hosts
+
+# Docker
+# ------
+Dockerfile.prod
+docker-compose.override.yml
+.dockerignore
+
+# Miscellaneous
+# -------------
+TODO.md
+NOTES.md
+SCRATCH.md
+.scratch/
+sandbox/
+
+# Keep Important Documentation
+# ----------------------------
+!README.md
+!CONTRIBUTING.md
+!LICENSE
+!docs/
+!examples/
+!tutorials/

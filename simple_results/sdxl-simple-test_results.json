@@ -1,0 +1,26 @@
+{
+  "standard": [
+    {
+      "execution_time": 5.517265319824219,
+      "estimated_emissions": 0.00022988605499267578,
+      "memory_used": 5527077888,
+      "timestamp": 1749161231.9766605,
+      "parameters": "{}"
+    },
+    {
+      "execution_time": 4.751038312911987,
+      "estimated_emissions": 0.00019795992970466614,
+      "memory_used": 5518737920,
+      "timestamp": 1749161237.0928936,
+      "parameters": "{}"
+    },
+    {
+      "execution_time": 4.748624801635742,
+      "estimated_emissions": 0.00019785936673482257,
+      "memory_used": 5519868416,
+      "timestamp": 1749161242.1910121,
+      "parameters": "{}"
+    }
+  ],
+  "parallel": []
+}

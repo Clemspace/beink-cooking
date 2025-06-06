@@ -1,0 +1,19 @@
+{
+  "total_images": 3,
+  "total_time": 66.53639936447144,
+  "average_time_per_image": 22.178799788157146,
+  "total_carbon_footprint": 0.001105333169301351,
+  "average_carbon_per_image": 0.00036844438976711696,
+  "throughput_images_per_minute": 2.705286154936044,
+  "optimization_config": {
+    "enable_fp16": true,
+    "enable_xformers": true,
+    "enable_attention_slicing": true,
+    "enable_vae_slicing": true,
+    "enable_cpu_offload": false,
+    "parallel_sampling": true,
+    "carbon_tracking": true
+  },
+  "detailed_results": [
+    [
+      

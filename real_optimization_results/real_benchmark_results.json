@@ -1,0 +1,50 @@
+[
+  {
+    "method": "baseline_fp32",
+    "prompt": "A futuristic city with flying cars at sunset",
+    "execution_time": 17.864165782928467,
+    "gpu_memory_mb": 21699.0,
+    "estimated_carbon_kg": 0.0005954721927642823,
+    "timestamp": 1749163286.4063003
+  },
+  {
+    "method": "optimized_fp16",
+    "prompt": "A futuristic city with flying cars at sunset",
+    "execution_time": 11.22369909286499,
+    "gpu_memory_mb": 31001.0,
+    "estimated_carbon_kg": 0.0003741233030954997,
+    "timestamp": 1749163298.0403576
+  },
+  {
+    "method": "baseline_fp32",
+    "prompt": "A magical forest with glowing mushrooms",
+    "execution_time": 17.290860176086426,
+    "gpu_memory_mb": 31011.0,
+    "estimated_carbon_kg": 0.0005763620058695475,
+    "timestamp": 1749163316.5176005
+  },
+  {
+    "method": "optimized_fp16",
+    "prompt": "A magical forest with glowing mushrooms",
+    "execution_time": 11.013107061386108,
+    "gpu_memory_mb": 31011.0,
+    "estimated_carbon_kg": 0.0003671035687128703,
+    "timestamp": 1749163327.9363358
+  },
+  {
+    "method": "baseline_fp32",
+    "prompt": "An astronaut riding a horse on Mars",
+    "execution_time": 17.33874773979187,
+    "gpu_memory_mb": 31013.0,
+    "estimated_carbon_kg": 0.0005779582579930623,
+    "timestamp": 1749163346.448154
+  },
+  {
+    "method": "optimized_fp16",
+    "prompt": "An astronaut riding a horse on Mars",
+    "execution_time": 11.043807744979858,
+    "gpu_memory_mb": 31013.0,
+    "estimated_carbon_kg": 0.000368126924832662,
+    "timestamp": 1749163357.885029
+  }
+]
