@@ -3,7 +3,6 @@
 > **Sustainable AI through Optimized Diffusion Model Inference**  
 > Making state-of-the-art diffusion models accessible and efficient for everyone.
 
-![BEINK Logo](https://img.shields.io/badge/BEINK-Diffusion%20Optimizer-4ecdc4?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.8+-blue?style=flat-square)
 ![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
@@ -21,7 +20,7 @@ BEINK is a comprehensive optimization framework for diffusion models that bridge
 ### **Our Dual Solution**
 
 #### 🔬 **Research Implementation**
-Faithful implementation of Stanford's ["Accelerating Diffusion Models with Parallel Sampling"](https://arxiv.org/abs/2404.12307) paper with memory-realistic adaptations for real-world hardware constraints.
+Faithful implementation of Stanford's ["Accelerating Diffusion Models with Parallel Sampling"](https://arxiv.org/abs/2405.15986v1) paper with memory-realistic adaptations for real-world hardware constraints.
 
 #### 🚀 **Practical Optimization Framework**  
 Production-ready optimization suite that works with any HuggingFace Diffusers pipeline - delivering immediate performance gains.
